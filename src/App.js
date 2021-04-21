@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { NavLink, Switch, Route } from 'react-router-dom';
@@ -6,14 +6,17 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Shopping from './pages/Shopping';
 import Error404 from './pages/Error404';
+import Cart from './components/Cart';
 
 function App() {
     const products = [
-        { id: uuidv4(), name: "apple" },
-        { id: uuidv4(), name: "banana" },
-        { id: uuidv4(), name: "cherry" },
-        { id: uuidv4(), name: "watermelon" },
+        { id: uuidv4(), name: "Apple" },
+        { id: uuidv4(), name: "Banana" },
+        { id: uuidv4(), name: "Cherry" },
+        { id: uuidv4(), name: "Watermelon" },
     ];
+
+    const [cart, setCart] = useState([]);
 
     return (
         <Container>
@@ -33,7 +36,7 @@ function App() {
                 </Switch>
             </main>
             <aside>
-                <h3>sidebar</h3>
+				<Cart cart={cart}/>
             </aside>
         </Container>
     );
