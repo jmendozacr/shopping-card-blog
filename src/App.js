@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
 import { NavLink, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
@@ -10,13 +9,27 @@ import Cart from './components/Cart';
 
 function App() {
     const products = [
-        { id: uuidv4(), name: "Apple" },
-        { id: uuidv4(), name: "Banana" },
-        { id: uuidv4(), name: "Cherry" },
-        { id: uuidv4(), name: "Watermelon" },
+        { id: 1, name: "Apple" },
+        { id: 2, name: "Banana" },
+        { id: 3, name: "Cherry" },
+        { id: 4, name: "Watermelon" },
     ];
 
     const [cart, setCart] = useState([]);
+
+	const onAdd = (product) => {
+		const exist = cart.find((item) => item.id === product.id);
+
+		if(exist) {
+			setCart(
+				cart.map(item => 
+					item.id === product.id ? {...exist, quantity: exist.quantity + 1} : item
+				)
+			);
+		} else {
+			setCart([...cart, {...product, quantity: 1}]);
+		}
+	}
 
     return (
         <Container>
@@ -30,7 +43,7 @@ function App() {
                     <Route path="/" exact component={Home}/>
                     <Route path="/blog" component={Blog}/>
                     <Route path="/shopping">
-						<Shopping products={products}/>
+						<Shopping products={products} onAdd={onAdd}/>
 					</Route>
                     <Route component={Error404}/>
                 </Switch>

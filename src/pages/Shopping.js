@@ -1,11 +1,11 @@
 import React from 'react';
 import Products from '../components/Products';
 
-const Shopping = ({ products }) => {
+const Shopping = ({ products, onAdd }) => {
     return (
         <div>
             <h1>Shopping</h1>
-            <Products products={products}/>
+            <Products products={products} onAdd={onAdd}/>
         </div>
     );
 }
